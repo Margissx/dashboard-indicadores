@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dashboard ejecutivo de indicadores comerciales creado con HTML, CSS, JavaScript, SQL y Chart.js." />
+  <title>Dashboard de Indicadores | Analítica Comercial</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">A</div>
+        <div>
+          <strong>Analytica</strong>
+          <span>Business intelligence</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Navegación principal">
+        <a class="nav-item active" href="#resumen">
+          <span class="nav-icon" aria-hidden="true">⌂</span>
+          Resumen
+        </a>
+        <a class="nav-item" href="#ventas">
+          <span class="nav-icon" aria-hidden="true">↗</span>
+          Ventas
+        </a>
+        <a class="nav-item" href="#categorias">
+          <span class="nav-icon" aria-hidden="true">◫</span>
+          Categorías
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="status-dot"></div>
+        <div>
+          <span class="eyebrow">Estado del modelo</span>
+          <strong>Datos actualizados</strong>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="resumen">
+      <header class="topbar">
+        <div class="breadcrumb">
+          <span>Portafolio</span>
+          <span>/</span>
+          <strong>Dashboard de Indicadores</strong>
+        </div>
+        <div class="topbar-actions">
+          <span class="period-chip">●  Enero — Diciembre 2025</span>
+          <div class="avatar" aria-label="Perfil de analítica">MG</div>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div>
+          <span class="eyebrow accent">REPORTE EJECUTIVO · 01</span>
+          <h1>Rendimiento comercial</h1>
+          <p>Una vista clara para entender el ritmo de ventas y las categorías que impulsan el negocio.</p>
+        </div>
+        <div class="hero-meta">
+          <span class="live-dot"></span>
+          <span>Modelo SQL simulado</span>
+        </div>
+      </section>
+
+      <section class="kpi-grid" aria-label="Indicadores principales">
+        <article class="kpi-card primary">
+          <div class="kpi-heading">
+            <span>Ventas totales</span>
+            <span class="kpi-icon">↗</span>
+          </div>
+          <strong class="kpi-value" id="total-sales">L 0</strong>
+          <div class="kpi-foot"><span class="trend up">+81.5%</span><span>vs. primer semestre</span></div>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-heading">
+            <span>Clientes activos</span>
+            <span class="kpi-icon soft">♙</span>
+          </div>
+          <strong class="kpi-value" id="total-clients">0</strong>
+          <div class="kpi-foot"><span class="trend neutral">12 únicos</span><span>en el periodo</span></div>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-heading">
+            <span>Productos vendidos</span>
+            <span class="kpi-icon soft">▦</span>
+          </div>
+          <strong class="kpi-value" id="total-products">0</strong>
+          <div class="kpi-foot"><span class="trend up">+14.2%</span><span>vs. periodo anterior</span></div>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-heading">
+            <span>Crecimiento de ventas</span>
+            <span class="kpi-icon soft">↗</span>
+          </div>
+          <strong class="kpi-value" id="sales-growth">0%</strong>
+          <div class="kpi-foot"><span class="trend up">Saludable</span><span>semestre contra semestre</span></div>
+        </article>
+      </section>
+
+      <section class="chart-grid" id="ventas">
+        <article class="panel sales-panel">
+          <div class="panel-header">
+            <div>
+              <span class="eyebrow">TENDENCIA</span>
+              <h2>Ventas por mes</h2>
+            </div>
+            <span class="panel-note">En lempiras (L)</span>
+          </div>
+          <div class="chart-wrap sales-chart-wrap">
+            <canvas id="monthlySalesChart" aria-label="Gráfico de ventas por mes" role="img"></canvas>
+            <div class="chart-fallback" id="monthlyFallback" hidden>Gráfico no disponible</div>
+          </div>
+        </article>
+
+        <article class="panel category-panel" id="categorias">
+          <div class="panel-header">
+            <div>
+              <span class="eyebrow">DISTRIBUCIÓN</span>
+              <h2>Ventas por categoría</h2>
+            </div>
+            <span class="panel-note">Participación</span>
+          </div>
+          <div class="category-content">
+            <div class="chart-wrap donut-wrap">
+              <canvas id="categorySalesChart" aria-label="Gráfico de ventas por categoría" role="img"></canvas>
+              <div class="chart-fallback" id="categoryFallback" hidden>Gráfico no disponible</div>
+            </div>
+            <div class="legend" id="categoryLegend"></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel table-panel">
+        <div class="panel-header table-header">
+          <div>
+            <span class="eyebrow">DETALLE DE DATOS</span>
+            <h2>Resumen mensual</h2>
+          </div>
+          <span class="sql-badge">SQL · SQLite</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Mes</th>
+                <th>Ventas</th>
+                <th>Clientes</th>
+                <th>Unidades</th>
+                <th>Variación</th>
+              </tr>
+            </thead>
+            <tbody id="monthlyTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <span>Dashboard de Indicadores · Proyecto de portafolio</span>
+        <span><span class="footer-dot"></span> HTML · CSS · JavaScript · SQL · Chart.js</span>
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
